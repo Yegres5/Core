@@ -1,0 +1,5 @@
+# Files and folders ignored in Patterns
+Patterns/.vscode
+Patterns/bin
+Patterns/lib
+Patterns/src/App.java
