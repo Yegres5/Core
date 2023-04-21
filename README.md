@@ -1,7 +1,7 @@
 # Design Patterns
-* [Singleton](Patterns/src/Singleton.java)
-* [Builder](Patterns/src/BuilderPattern.java)
-* [Factory Method](Patterns/src/FactoryMethod.java)
-* [Template method](Patterns/src/TemplateMethod.java)
-* [Strategy](Patterns/src/Strategy.java)
-* [Chain of Responsibility](Patterns/src/ChainOfResponsibility.java)
+* Singleton ([java](Patterns/src/Singleton.java))
+* Builder ([java](Patterns/src/BuilderPattern.java))
+* Factory Method ([java](Patterns/src/FactoryMethod.java))
+* Template method ([java](Patterns/src/TemplateMethod.java))
+* Strategy ([java](Patterns/src/Strategy.java))
+* Chain of Responsibility ([java](Patterns/src/ChainOfResponsibility.java))
