@@ -3,17 +3,21 @@
  * Strategy.AbstractStrategy strategy;
  * strategy = new Strategy.HalfValue(10);
  * strategy.addValue(100);
- * System.out.println(String.format("Strategy data value is %s", strategy.getData()));  
+ * System.out.println(String.format("Strategy data value is %s", strategy.getData()));
  * </pre>
  */
 public final class Strategy {
     public static abstract class AbstractStrategy {
         protected int data;
-        public int getData() { return this.data; }
+
+        public int getData() {
+            return this.data;
+        }
 
         AbstractStrategy(int data) {
             this.data = data;
         }
+
         public abstract void addValue(int value);
     }
 
@@ -33,7 +37,7 @@ public final class Strategy {
         }
 
         public void addValue(int value) {
-            this.data += value/2;
+            this.data += value / 2;
         }
     }
 }

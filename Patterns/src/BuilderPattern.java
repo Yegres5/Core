@@ -4,7 +4,7 @@
  * BuilderPattern.Builder builder = new BuilderPattern.Builder();
  * director.constructOneType(builder);
  * BuilderPattern.Entity entity = builder.data(data).build();
- * </pre> 
+ * </pre>
  */
 public final class BuilderPattern {
     public static class Entity {
@@ -35,7 +35,6 @@ public final class BuilderPattern {
             return new Entity(type, data);
         }
     }
-
 
     public static class Director {
         public void constructOneType(Builder builder) {

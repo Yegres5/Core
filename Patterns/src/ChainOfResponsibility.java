@@ -2,16 +2,18 @@
  * <pre>
  * ChainOfResponsibility.Object object = new ChainOfResponsibility.Object(0);
  * ChainOfResponsibility.Chain_Node head = ChainOfResponsibility.build_chain(
- *      new ChainOfResponsibility.ObjectService(object, 5),
- *      new ChainOfResponsibility.ObjectValidator(object, 10)
- * );
+ *         new ChainOfResponsibility.ObjectService(object, 5),
+ *         new ChainOfResponsibility.ObjectValidator(object, 10));
  * ChainOfResponsibility.proceedWithChain(head);
- * </pre> 
+ * </pre>
  */
 public final class ChainOfResponsibility {
     public static class Object {
         public int value;
-        public Object(int value) { this.value = value; }
+
+        public Object(int value) {
+            this.value = value;
+        }
     }
 
     public static boolean proceedWithChain(Chain_Node node) {
@@ -31,7 +33,7 @@ public final class ChainOfResponsibility {
         }
         return firstNode;
     }
-   
+
     public static abstract class Chain_Node {
         private Chain_Node next;
         protected Object object;
@@ -42,7 +44,7 @@ public final class ChainOfResponsibility {
             if (next == null) {
                 return true;
             }
-            
+
             return next.doWork();
         }
 
@@ -66,7 +68,6 @@ public final class ChainOfResponsibility {
     }
 
     public static class ObjectValidator extends Chain_Node {
-        
         private int validationThreshold;
 
         public ObjectValidator(Object object, int treshold) {

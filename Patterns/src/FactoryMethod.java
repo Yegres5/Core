@@ -4,7 +4,6 @@
  * System.out.println(factoryEntity.getInfo());
  * </pre>
  */
-
 public final class FactoryMethod {
     public static AbstractEntity createObject(Boolean property) {
         if (property) {
