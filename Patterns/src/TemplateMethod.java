@@ -1,14 +1,9 @@
 /**
  * <pre>
- * Boolean bool = true;
  * TemplateMethod.AbstractTemplate templateClass;
- * 
- * if (bool) {
  * templateClass = new TemplateMethod.Summator(10, 10, 15);
- * } else {
- * templateClass = new TemplateMethod.Multiplier(10, 10, 15);
- * }
  * templateClass.templateMethod();
+ * System.out.println(String.format("Template method data value is %s", templateClass.getData()));  
  * </pre>
  */
 public class TemplateMethod {

@@ -1,17 +1,11 @@
 /**
  * <pre>
  * ChainOfResponsibility.Object object = new ChainOfResponsibility.Object(0);
- * ChainOfResponsibility.Chain_Node head = ChainOfResponsibility.Chain_Node.build_chain(
- *     new ChainOfResponsibility.ObjectService(object, 5),
- *     new ChainOfResponsibility.ObjectValidator(object, 10)
+ * ChainOfResponsibility.Chain_Node head = ChainOfResponsibility.build_chain(
+ *      new ChainOfResponsibility.ObjectService(object, 5),
+ *      new ChainOfResponsibility.ObjectValidator(object, 10)
  * );
- * 
- * if (head.doWork()) {
- *     System.out.println(String.format("Success value of object is %s", object.value));
- * } else {
- *     System.out.println(String.format("Fail value of object is %s", object.value)); 
- * }
- * System.out.println(object.value);
+ * ChainOfResponsibility.proceedWithChain(head);
  * </pre> 
  */
 public final class ChainOfResponsibility {
@@ -19,18 +13,28 @@ public final class ChainOfResponsibility {
         public int value;
         public Object(int value) { this.value = value; }
     }
+
+    public static boolean proceedWithChain(Chain_Node node) {
+        if (node.doWork()) {
+            System.out.format("Success, the value is: %d\n", node.getObject().value);
+            return true;
+        }
+        System.out.println("Fail");
+        return false;
+    }
+
+    public static Chain_Node build_chain(Chain_Node firstNode, Chain_Node... chain) {
+        Chain_Node node = firstNode;
+        for (Chain_Node nextNode : chain) {
+            node.next = nextNode;
+            node = nextNode;
+        }
+        return firstNode;
+    }
    
     public static abstract class Chain_Node {
         private Chain_Node next;
-
-        public static Chain_Node build_chain(Chain_Node firstNode, Chain_Node... chain) {
-            Chain_Node node = firstNode;
-            for (Chain_Node nextNode : chain) {
-                node.next = nextNode;
-                node = nextNode;
-            }
-            return firstNode;
-        }
+        protected Object object;
 
         public abstract boolean doWork();
 
@@ -41,10 +45,13 @@ public final class ChainOfResponsibility {
             
             return next.doWork();
         }
+
+        public Object getObject() {
+            return object;
+        }
     }
 
     public static class ObjectService extends Chain_Node {
-        private Object object;
         private int increment;
 
         public ObjectService(Object object, int increment) {
@@ -59,7 +66,7 @@ public final class ChainOfResponsibility {
     }
 
     public static class ObjectValidator extends Chain_Node {
-        private Object object;
+        
         private int validationThreshold;
 
         public ObjectValidator(Object object, int treshold) {

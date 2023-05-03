@@ -1,14 +1,9 @@
 /**
  * <pre>
- * Boolean bool = true;
  * Strategy.AbstractStrategy strategy;
- * 
- * if (bool) {
- *     strategy = new Strategy.FullValue(10);
- * } else {
- *     strategy = new Strategy.HalfValue(10);
- * }
+ * strategy = new Strategy.HalfValue(10);
  * strategy.addValue(100);
+ * System.out.println(String.format("Strategy data value is %s", strategy.getData()));  
  * </pre>
  */
 public final class Strategy {

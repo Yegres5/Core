@@ -1,85 +1,49 @@
 /**
  * <pre>
- * BuilderPattern.FirstEntityBuilder firstBuilder = new BuilderPattern.FirstEntityBuilder();
- * BuilderPattern.Director.constructEntityOneWay(firstBuilder);
- * BuilderPattern.FirstEntity entity1 = firstBuilder.getResult();
- * System.out.println(entity1.getType());
- *
- * BuilderPattern.SecondEntityBuilder secondBuilder = new BuilderPattern.SecondEntityBuilder();
- * BuilderPattern.Director.constructEntityOneWay(secondBuilder);
- * BuilderPattern.SecondEntity entity2 = secondBuilder.getResult();
- * System.out.println(entity2.getInfo());
+ * BuilderPattern.Director director = new BuilderPattern.Director();
+ * BuilderPattern.Builder builder = new BuilderPattern.Builder();
+ * director.constructOneType(builder);
+ * BuilderPattern.Entity entity = builder.data(data).build();
  * </pre> 
  */
 public final class BuilderPattern {
-    
-    public static enum EntityTypes {
-        FIRST_TYPE, SECOND_TYPE
-    }
+    public static class Entity {
+        public String type;
+        public String data;
 
-    public static class FirstEntity {
-        private String feature;
-        private EntityTypes type;
-
-        public FirstEntity(String feature, EntityTypes type) {
-            this.feature = feature;
+        public Entity(String type, String data) {
             this.type = type;
+            this.data = data;
         }
-
-        public String getFeature() { return this.feature; }
-        public EntityTypes getType() { return this.type; }
     }
 
-    public static class SecondEntity {
-        private String feature;
-        private EntityTypes type;
+    public static class Builder {
+        private String type;
+        private String data;
 
-        public SecondEntity(String feature, EntityTypes type) {
-            this.feature = feature;
+        public Builder type(String type) {
             this.type = type;
+            return this;
         }
-        
-        public String getInfo() {
-            return String.format("This is %s entity with %s feature", type, feature);
+
+        public Builder data(String data) {
+            this.data = data;
+            return this;
+        }
+
+        public Entity build() {
+            return new Entity(type, data);
         }
     }
 
-    private interface Builder {
-        void setFeature(String feature);
-        void setType(EntityTypes type);
-    }
-
-    public static class FirstEntityBuilder implements Builder {
-        private EntityTypes type;
-        private String feature;
-
-        @Override
-        public void setFeature(String feature) { this.feature = feature; }
-        @Override
-        public void setType(EntityTypes type) { this.type = type; }
-        public FirstEntity getResult() { return new FirstEntity(feature, type); }
-    }
-
-    public static class SecondEntityBuilder implements Builder {
-        private EntityTypes type;
-        private String feature;
-
-        @Override
-        public void setFeature(String feature) { this.feature = feature; }
-        @Override
-        public void setType(EntityTypes type) { this.type = type; }
-        public SecondEntity getResult() { return new SecondEntity(feature, type); }
-    }
 
     public static class Director {
-        public static void constructEntityOneWay(Builder builder) {
-            builder.setFeature("Fancy");
-            builder.setType(EntityTypes.FIRST_TYPE);
+        public void constructOneType(Builder builder) {
+            builder.type("Type 1");
         }
 
-        public static void constructEntitySecondWay(Builder builder) {
-            builder.setFeature("Not that fancy");
-            builder.setType(EntityTypes.SECOND_TYPE);
+        public void constructSecondType(Builder builder) {
+            builder.type("Type 2");
         }
     }
 }

@@ -1,21 +1,19 @@
 /**
  * <pre>
- * Boolean bool = true;
- * FactoryMethod.Factory factory;
- * 
- * if (bool) {
- *     factory = new FactoryMethod.FirstFactory();
- * } else {
- *     factory = new FactoryMethod.SecondFactory();
- * }
- *
- * System.out.println(factory.getInfo());
+ * FactoryMethod.AbstractEntity factoryEntity = FactoryMethod.createObject(bool);
+ * System.out.println(factoryEntity.getInfo());
  * </pre>
  */
 
 public final class FactoryMethod {
+    public static AbstractEntity createObject(Boolean property) {
+        if (property) {
+            return new FirstFactory().createEntity();
+        }
+        return new SecondFactory().createEntity();
+    }
 
-    private interface AbstractEntity {
+    public interface AbstractEntity {
         String getInfo();
     }
 
@@ -40,13 +38,6 @@ public final class FactoryMethod {
     }
 
     public static abstract class Factory {
-        private static AbstractEntity entity;
-
-        public String getInfo() {
-           entity = createEntity();
-           return entity.getInfo();
-        }
-
         public abstract AbstractEntity createEntity();
     }
 
