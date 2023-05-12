@@ -4,4 +4,4 @@
 * Factory Method ([java](Patterns/src/FactoryMethod.java))
 * Template method ([java](Patterns/src/TemplateMethod.java))
 * Strategy ([java](Patterns/src/Strategy.java))
-* Chain of Responsibility ([java](Patterns/src/ChainOfResponsibility.java))
+* Chain of Responsibility ([java](Patterns/src/ChainOfResponsibilityPattern.java))

@@ -1,6 +1,5 @@
 public class App {
     public static void main(String[] args) throws Exception {
-        String data = "Test data";
         Boolean bool = true;
 
         // Singleton
@@ -8,21 +7,31 @@ public class App {
         System.out.println(Singleton.getInstance(helloMessage).value);
 
         // Builder
-        BuilderPattern.Director director = new BuilderPattern.Director();
-        BuilderPattern.Builder builder = new BuilderPattern.Builder();
-        director.constructOneType(builder);
-        BuilderPattern.Entity entity = builder.data(data).build();
+        BuilderPattern.CarBuilder carBuilder = new BuilderPattern.CarBuilder();
+        BuilderPattern.Car car = carBuilder
+                .setNumberOfSeats(16)
+                .setNumberOfDoors(3)
+                .setModel("Bus")
+                .build();
+        System.out.println(String.format("Car model is %s", car.model));
 
         // Factory method
         FactoryMethod.AbstractEntity factoryEntity = FactoryMethod.createObject(bool);
         System.out.println(factoryEntity.getInfo());
 
         // Chain of Responsibility
-        ChainOfResponsibility.Object object = new ChainOfResponsibility.Object(0);
-        ChainOfResponsibility.Chain_Node head = ChainOfResponsibility.build_chain(
-                new ChainOfResponsibility.ObjectService(object, 15),
-                new ChainOfResponsibility.ObjectValidator(object, 10));
-        ChainOfResponsibility.proceedWithChain(head);
+        ChainOfResponsibilityPattern.Object object = new ChainOfResponsibilityPattern.Object(5);
+        ChainOfResponsibilityPattern.ChainOfResponsibility chain = new ChainOfResponsibilityPattern.ChainOfResponsibility(
+                new ChainOfResponsibilityPattern.AbstractValidator[] {
+                        new ChainOfResponsibilityPattern.ThresholdValidator(10),
+                        new ChainOfResponsibilityPattern.ThresholdValidator(5)
+                });
+
+        ChainOfResponsibilityPattern.SummationService service = new ChainOfResponsibilityPattern.SummationService(chain,
+                object);
+        if (service.usefulWork(15)) {
+            System.out.println(String.format("Success: object value is %s", object.value));
+        }
 
         // Template Method
         TemplateMethod.AbstractTemplate templateClass;

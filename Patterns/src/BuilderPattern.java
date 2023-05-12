@@ -1,48 +1,49 @@
 /**
  * <pre>
- * BuilderPattern.Director director = new BuilderPattern.Director();
- * BuilderPattern.Builder builder = new BuilderPattern.Builder();
- * director.constructOneType(builder);
- * BuilderPattern.Entity entity = builder.data(data).build();
+ * BuilderPattern.CarBuilder carBuilder = new BuilderPattern.CarBuilder();
+ * BuilderPattern.Car car = carBuilder
+ *         .setNumberOfSeats(16)
+ *         .setNumberOfDoors(3)
+ *         .setModel("Bus")
+ *         .build();
  * </pre>
  */
 public final class BuilderPattern {
-    public static class Entity {
-        public String type;
-        public String data;
+    public static class Car {
+        public Integer numberOfSeats;
+        public Integer numberOfDoors;
+        public String model;
 
-        public Entity(String type, String data) {
-            this.type = type;
-            this.data = data;
+        public Car(Integer numberOfSeats, Integer numberOfDoors, String model) {
+            this.numberOfSeats = numberOfSeats;
+            this.numberOfDoors = numberOfDoors;
+            this.model = model;
+
         }
     }
 
-    public static class Builder {
-        private String type;
-        private String data;
+    public static class CarBuilder {
+        public Integer numberOfSeats;
+        public Integer numberOfDoors;
+        public String model;
 
-        public Builder type(String type) {
-            this.type = type;
+        public CarBuilder setNumberOfSeats(Integer numberOfSeats) {
+            this.numberOfSeats = numberOfSeats;
             return this;
         }
 
-        public Builder data(String data) {
-            this.data = data;
+        public CarBuilder setNumberOfDoors(Integer numberOfDoors) {
+            this.numberOfDoors = numberOfDoors;
             return this;
         }
 
-        public Entity build() {
-            return new Entity(type, data);
-        }
-    }
-
-    public static class Director {
-        public void constructOneType(Builder builder) {
-            builder.type("Type 1");
+        public CarBuilder setModel(String model) {
+            this.model = model;
+            return this;
         }
 
-        public void constructSecondType(Builder builder) {
-            builder.type("Type 2");
+        public Car build() {
+            return new Car(numberOfSeats, numberOfDoors, model);
         }
     }
 }
