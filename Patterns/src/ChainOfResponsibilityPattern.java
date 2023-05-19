@@ -23,13 +23,12 @@ public final class ChainOfResponsibilityPattern {
         }
 
         public boolean proceedWithChain(Object object) {
+            boolean isChainSucessull = true;
             for (AbstractValidator validator : chain) {
-                if (!validator.validate(object)) {
-                    return false;
-                }
+                isChainSucessull &= validator.validate(object);
             }
 
-            return true;
+            return isChainSucessull;
         }
     }
 
@@ -54,7 +53,7 @@ public final class ChainOfResponsibilityPattern {
 
         public boolean validate(Object object) {
             if (object.value > validationThreshold) {
-                System.out.format("Error: fail, the value: %d, is less than threshold: %d\n", object.value,
+                System.out.format("Error: fail, the value: %d, is greater than the threshold: %d\n", object.value,
                         validationThreshold);
                 return false;
             }
@@ -80,5 +79,4 @@ public final class ChainOfResponsibilityPattern {
             return false;
         }
     }
-
 }
